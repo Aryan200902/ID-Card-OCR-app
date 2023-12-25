@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai ID Card OCR</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        #upload-form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="file"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #result-container,
+        #entries-container {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        button.delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        button.delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        #toggle-entries-btn {
+            display: inline-block;
+            padding: 5px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thai ID Card OCR</h1>
+    
+    <form id="upload-form" enctype="multipart/form-data" method="post" action="/upload">
+        <label for="id_card_image">Select ID Card Image:</label>
+        <input type="file" id="id_card_image" name="id_card_image" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="result-container">
+        <h2>Extracted Information:</h2>
+        <ul id="extracted-data"></ul>
+    </div>
+
+    <div id="entries-container">
+        <h2>All Entries:</h2>
+        <ul id="all-entries"></ul>
+        <button id="toggle-entries-btn">Toggle All Entries</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/all_entries')
+                .then(response => response.json())
+                .then(data => displayAllEntries(data))
+                .catch(error => console.error('Error fetching entries:', error));
+    
+            // Move the toggleEntriesBtn event listener outside the displayAllEntries function
+            const toggleEntriesBtn = document.getElementById('toggle-entries-btn');
+            const allEntriesList = document.getElementById('all-entries');
+            allEntriesList.classList.add('hidden'); // Initially hide the entries list
+            toggleEntriesBtn.addEventListener('click', function () {
+                allEntriesList.classList.toggle('hidden'); // Toggle the 'hidden' class
+            });
+        });
+
+        function displayAllEntries(entries) {
+            const entriesContainer = document.getElementById('entries-container');
+            const allEntriesList = document.getElementById('all-entries');
+
+            // Clear previous entries
+            allEntriesList.innerHTML = '';
+
+            // Display each entry
+            entries.forEach(entry => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>_id:</strong> ${entry._id}, <strong>Name:</strong> ${entry.name}, <strong>Last Name:</strong> ${entry.last_name}, <strong>ID Number:</strong> ${entry.identification_number}`;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-btn';
+                deleteButton.addEventListener('click', function () {
+                    deleteEntry(entry._id);
+                });
+
+                listItem.appendChild(deleteButton);
+                allEntriesList.appendChild(listItem);
+            });
+
+            entriesContainer.style.display = 'block';
+        }
+
+        function updateAllEntries() {
+            fetch('/all_entries')
+                .then(response => response.json())
+                .then(data => displayAllEntries(data))
+                .catch(error => console.error('Error fetching entries:', error));
+        }
+
+        function deleteEntry(entryId) {
+            fetch(`/delete_entry/${entryId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Entry deleted successfully.');
+                        updateAllEntries(); // Update the entries list after deletion
+                    } else {
+                        alert('Failed to delete entry. Please try again.');
+                    }
+                })
+                .catch(error => console.error('Error deleting entry:', error));
+        }
+
+        document.getElementById('upload-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        displayResult(data.data);
+                        updateAllEntries(); // Update the entries list after a successful upload
+                    } else {
+                        alert('OCR process failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        });
+
+        function displayResult(extractedData) {
+            const resultContainer = document.getElementById('result-container');
+            const extractedDataList = document.getElementById('extracted-data');
+
+            // Clear previous results
+            extractedDataList.innerHTML = '';
+
+            // Display each extracted field
+            for (const key in extractedData) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${key}:</strong> ${extractedData[key]}`;
+                extractedDataList.appendChild(listItem);
+            }
+
+            resultContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
