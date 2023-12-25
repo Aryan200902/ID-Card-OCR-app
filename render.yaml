@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: ID-Card-OCR-App
+    buildCommand: |
+      python -m venv venv
+      source venv/bin/activate
+      pip install -r requirements.txt
+    startCommand: venv/bin/python run.py
