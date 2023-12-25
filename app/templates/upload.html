@@ -27,8 +27,6 @@
             letter-spacing: 6px;
         }
 
-        
-
         label {
             display: block;
             margin-bottom: 10px;
@@ -37,7 +35,6 @@
         }
 
         input[type="file"] {
-
             margin-bottom: 20px;
             padding: 20px 0px;
             border-radius: 4px;
@@ -54,21 +51,85 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            padding: 30px;
             font-size: 1.6rem;
             font-weight: bold;
             letter-spacing: 6px;
             margin-top: 30px;
         }
 
+        .wrapper {
+            width: 80%;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        #extracted-data {
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            width: 600px;
+            background-color: #dc2788;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .card-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .card-content h1 {
+            font-size: 1rem;
+            margin: 0;
+            width: 40%;
+            text-align: start;
+            margin-left: 20px;
+            color: #fff;
+        }
+
+        .card-content p {
+            font-size: 1.4rem;
+            background-color: #fff;
+            color: #dc2788;
+            padding: 6px;
+            border-radius: 4px;
+            width: 50%;
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
         #result-container,
         #entries-container {
-            /* display: none; */
             width: 100%;
             color: #111;
-            /* margin: 20px auto; */
-            /* padding: 20px; */
-            /* background-color: #fff; */
             border-radius: 8px;
             color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -79,107 +140,11 @@
             padding: 0;
         }
 
-       
-
-        strong {
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        button.delete-btn {
-            background-color: #dc3545;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            float: right;
-        }
-
-        button.delete-btn:hover {
-            background-color: #c82333;
-        }
-
-
         .hidden {
             display: none;
         }
-        .wrapper{
-            width: 80%;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;            
-            /* justify-content: center; */
-            /* align-items: center; */
-            position: relative;
-        }
-        
-        #extracted-data{
-            display: flex;
-            justify-content: center;
-        }
-        .card{
-            width: 600px;
-            height: 450px;
-            background-color: #dc2788;
-            border-radius: 10px;
-        }
-        .card h2{
-            text-align: center;
-            font-size: 1.8rem;
-        }
-        .card div{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            letter-spacing: 0;
-        }
-        .card div h1{
-            font-size: 1rem;
-            padding: 0;
-            margin: 0;
-            letter-spacing: normal;
-            margin-right: 6px;
-        }
-        .card div li{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-        }
-        .card div p{
-            font-size: 1.4rem;
-            background-color: #fff;
-            color: #dc2788; 
-            padding: 6px;
-            border-radius: 4px;
-            
-        }
-        .card .left{
-            display: flex;
-            flex-direction: column;
-            width: 48%;
-        }
-        .card .right{
-            display: flex;
-            flex-direction: column;
-            width: 48%;
-        }
-        .card .right li,.left li{
-            width: 100%;
-        }
-        .card .left h1,.card .right h1{
-            width: 40%;
-            text-align: start;
-            margin-left: 20px;
-        }
-        .card .left p,.card .right p{
-            width:50%;
-            text-align: center;
-            margin-right: 20px;
-        }
-        #all-entries li{
+
+        #all-entries li {
             width: 100%;
             color: #fff;
             display: flex;
@@ -190,19 +155,47 @@
             padding: 4px;
             border-color: #fff;
         }
-        #all-entries li div{
+
+        #all-entries li div {
             width: 100%;
             display: flex;
             justify-content: space-between;
         }
-        #all-entries li div div{
+
+        #all-entries li div div {
             width: 60%;
             display: flex;
             flex-direction: column;
-
         }
-        #all-entries button{
+
+        #all-entries button {
             width: 30%;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #all-entries button:hover {
+            background-color: #c82333;
+        }
+
+        #toggle-entries-btn {
+            width: 30%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #toggle-entries-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -217,52 +210,46 @@
             <button type="submit">Upload</button>
         </form>
 
-        <div id="result-container">
+        <div id="result-container" class="hidden">
             <h2>Extracted Information:</h2>
-            <ul id="extracted-data">
+            <ul id="extracted-data" class="card-content">
                 <div class="card">
                     <h2>ID Card</h2>
-                    <div>
+                    <div class="card-content">
                         <div class="left">
                             <li>
-                                <h1>ID</h1>
+                                <h1>ID:</h1>
                                 <p>12349671298</p>
                             </li>
                             <li>
-                                <h1>First Name</h1>
+                                <h1>First Name:</h1>
                                 <p>Aryan</p>
                             </li>
                             <li>
-                                <h1>Second Name</h1>
+                                <h1>Second Name:</h1>
                                 <p>Shri</p>
                             </li>
                         </div>
                         <div class="right">
                             <li>
-                                <h1>DOB</h1>
+                                <h1>DOB:</h1>
                                 <p>27 Nov 2000</p>
                             </li>
                             <li>
-                                <h1>DOE</h1>
+                                <h1>DOE:</h1>
                                 <p>27 Sept 2023</p>
                             </li>
                             <li>
-                                <h1>DOI</h1>
+                                <h1>DOI:</h1>
                                 <p>27 Aug 2020</p>
                             </li>
                         </div>
-                        
-                        
                         <li>
-                            <h1>ID No.</h1>
+                            <h1>ID No.:</h1>
                             <p>1297 098y102 124</p>
                         </li>
-
                     </div>
-                    
-                    
                 </div>
-                
             </ul>
         </div>
 
@@ -279,13 +266,11 @@
                         </div>
                         <button>Delete</button>
                     </div>
-                    
                 </li>
             </ul>
             <button id="toggle-entries-btn">Toggle All Entries</button>
-            </div>
+        </div>
     </div>
-    
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -306,29 +291,48 @@
         function displayAllEntries(entries) {
             const entriesContainer = document.getElementById('entries-container');
             const allEntriesList = document.getElementById('all-entries');
-
+        
             // Clear previous entries
             allEntriesList.innerHTML = '';
-
-            // Display each entry
+        
+            // Display each entry in a card
             entries.forEach(entry => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<strong>_id:</strong> ${entry._id}, <strong>Name:</strong> ${entry.name}, <strong>Last Name:</strong> ${entry.last_name}, <strong>ID Number:</strong> ${entry.identification_number}`;
-
+                const card = document.createElement('div');
+                card.classList.add('card');
+        
+                const cardContent = document.createElement('div');
+                cardContent.classList.add('card-content');
+        
+                // Display each field in the card
+                for (const key in entry) {
+                    const dataItem = document.createElement('li');
+                    const fieldName = document.createElement('h1');
+                    const fieldValue = document.createElement('p');
+        
+                    fieldName.textContent = key + ":";
+                    fieldValue.textContent = entry[key];
+        
+                    dataItem.appendChild(fieldName);
+                    dataItem.appendChild(fieldValue);
+        
+                    cardContent.appendChild(dataItem);
+                }
+        
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
                 deleteButton.className = 'delete-btn';
                 deleteButton.addEventListener('click', function () {
                     deleteEntry(entry._id);
                 });
-
-                listItem.appendChild(deleteButton);
-                allEntriesList.appendChild(listItem);
+        
+                cardContent.appendChild(deleteButton);
+                card.appendChild(cardContent);
+                allEntriesList.appendChild(card);
             });
-
+        
             entriesContainer.style.display = 'block';
         }
-
+        
         function updateAllEntries() {
             fetch('/all_entries')
                 .then(response => response.json())
@@ -380,17 +384,39 @@
         function displayResult(extractedData) {
             const resultContainer = document.getElementById('result-container');
             const extractedDataList = document.getElementById('extracted-data');
-
+        
             // Clear previous results
             extractedDataList.innerHTML = '';
-
-            // Display each extracted field
+        
+            // Create a card for extracted information
+            const card = document.createElement('div');
+            card.classList.add('card');
+        
+            const cardTitle = document.createElement('h2');
+            cardTitle.textContent = 'ID Card';
+            card.appendChild(cardTitle);
+        
+            const cardContent = document.createElement('div');
+            cardContent.classList.add('card-content');
+        
+            // Display each extracted field in the card
             for (const key in extractedData) {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `<strong>${key}:</strong> ${extractedData[key]}`;
-                extractedDataList.appendChild(listItem);
+                const dataItem = document.createElement('li');
+                const fieldName = document.createElement('h1');
+                const fieldValue = document.createElement('p');
+        
+                fieldName.textContent = key + ":";
+                fieldValue.textContent = extractedData[key];
+        
+                dataItem.appendChild(fieldName);
+                dataItem.appendChild(fieldValue);
+        
+                cardContent.appendChild(dataItem);
             }
-
+        
+            card.appendChild(cardContent);
+            extractedDataList.appendChild(card);
+            resultContainer.classList.remove('hidden');
             resultContainer.style.display = 'block';
         }
     </script>

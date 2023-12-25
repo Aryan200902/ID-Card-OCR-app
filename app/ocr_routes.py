@@ -46,6 +46,12 @@ def delete_entry(entry_id):
         return jsonify({'status': 'success'})
     else:
         return jsonify({'status': 'error', 'message': 'Entry not found'})
+    
+
+@app.route('/', methods=['GET'])    
+def home_page():            
+    if request.method == 'GET':
+        return jsonify({'status': 'success, SERVER IS RUNNING'})
 
 
 @app.route('/upload', methods=['GET', 'POST'])
