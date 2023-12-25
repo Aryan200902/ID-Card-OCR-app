@@ -1,18 +1,16 @@
 import os
-from flask import render_template, request, jsonify
+from flask import Flask ,render_template, request, jsonify
 from google.cloud import vision_v1
 from app import app, mongo
 import re
 from bson import ObjectId
 import json
 from dotenv import load_dotenv
-
+from flask_pymongo import PyMongo
 
 load_dotenv()
 
-# Use the loaded environment variables
 google_credentials_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
-
 # Create a Google Vision API client
 client = vision_v1.ImageAnnotatorClient()
 

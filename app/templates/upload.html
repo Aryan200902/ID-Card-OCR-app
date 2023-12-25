@@ -72,18 +72,25 @@
         }
 
         .card {
-            width: 600px;
-            background-color: #dc2788;
+            width: 700px;
+            background-color: #000;
             border-radius: 10px;
             margin-bottom: 20px;
             padding: 20px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            border-width:2px;
+            border-style:solid;
+            color:#fff;
         }
 
         .card h2 {
             text-align: center;
             font-size: 1.8rem;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .card-content {
@@ -119,11 +126,12 @@
             padding: 5px 10px;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 20px;
         }
 
         .delete-btn:hover {
             background-color: #c82333;
+            
         }
 
         #result-container,
@@ -136,12 +144,19 @@
         }
 
         ul {
+            display: flex;
+            flex-wrap :wrap;
             list-style: none;
             padding: 0;
         }
 
         .hidden {
             display: none;
+        }
+
+        #all-entries{
+            display:flex;
+            padding-top:10px;
         }
 
         #all-entries li {
@@ -197,10 +212,87 @@
         #toggle-entries-btn:hover {
             background-color: #0056b3;
         }
+        .card h1{
+            font-size: 1.2rem;
+            letter-spacing: normal;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+            color:#fff;
+            text-transform:uppercase;
+        }
+        .card p{
+            font-size: 1.4rem;
+            background-color: #fff;
+            padding: 4px;
+            color: #000;
+            border-radius: 5px;
+        }
+        .left{
+            display: flex;
+            flex-wrap:wrap;
+            width: 90%;
+            justify-content:space-evenly;
+        }
+        .right{
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+        }
+        .left li{
+            margin-top:4px;
+            width:45%;
+        }
+        #all-entries li{
+            width:45%;
+            displa:flex;
+            flex-direction:column;
+            border-width:2px;
+            border-style:solid;
+            border-color:#fff; 
+            margin:10px 0px;
+        }   
+        #all-entries li div{
+            width:100%;
+            display:flex;
+            flex-direction:reverse;
+        }
+        #all-entries li h3{
+            width:50%;
+            margin-top:4px;
+            text-transform:uppercase;
+
+        }
+        #all-entries li p{
+            width:50%;
+            margin-top:4px;
+        }
+        #all-entries{
+            display:none;
+            justify-content:space-between;
+            padding:20px;
+        }
+        .back{
+            width:100vw;
+            height:100vh;
+            position:absolute;
+            top:0;
+        }
+        .back .tenor-gif-embed{
+            width:100%;
+            height:100%;
+            z-index:-2;
+        }
+        .back .blur{
+            width:100%;
+            height10%;
+            z-index:-1;
+            background-color:#000;
+            opacity:0.3;
+        }
     </style>
 </head>
 <body>
-
+    
     <div class="wrapper">
         <h1>Thai ID Card OCR</h1>
 
@@ -210,12 +302,11 @@
             <button type="submit">Upload</button>
         </form>
 
-        <div id="result-container" class="hidden">
+        <div id="result-container">
             <h2>Extracted Information:</h2>
-            <ul id="extracted-data" class="card-content">
-                <div class="card">
+            <ul id="extracted-data">
+                <div class="card hidden">
                     <h2>ID Card</h2>
-                    <div class="card-content">
                         <div class="left">
                             <li>
                                 <h1>ID:</h1>
@@ -247,28 +338,18 @@
                         <li>
                             <h1>ID No.:</h1>
                             <p>1297 098y102 124</p>
-                        </li>
-                    </div>
+                        </li>   
                 </div>
             </ul>
         </div>
 
         <div id="entries-container">
-            <h2>All Entries:</h2>
+            
+            <button id="toggle-entries-btn">Show All Entries</button>
+            
             <ul id="all-entries">
-                <li>
-                    <h1>ID 632945927</h1>
-                    <div>
-                        <div>
-                            <h3>First Name:</h3>
-                            <h3>Last Name:</h3>
-                            <h3>ID No.:</h3>
-                        </div>
-                        <button>Delete</button>
-                    </div>
-                </li>
+                
             </ul>
-            <button id="toggle-entries-btn">Toggle All Entries</button>
         </div>
     </div>
 
@@ -282,42 +363,46 @@
             // Move the toggleEntriesBtn event listener outside the displayAllEntries function
             const toggleEntriesBtn = document.getElementById('toggle-entries-btn');
             const allEntriesList = document.getElementById('all-entries');
-            allEntriesList.classList.add('hidden'); // Initially hide the entries list
+            
+            allEntriesList.style.display='hidden'; // Initially hide the entries list
             toggleEntriesBtn.addEventListener('click', function () {
-                allEntriesList.classList.toggle('hidden'); // Toggle the 'hidden' class
+                if(state==0){
+                     toggleEntriesBtn.innerHTML='Hide All Entries';
+                     allEntriesList.style.display='flex'; // Toggle the 'hidden' class
+                     state=1;
+                }
+                else{
+                     toggleEntriesBtn.innerHTML='Show All Entries';
+                     allEntriesList.style.display='none'; // Toggle the 'hidden' class
+                     state=0;
+                }
             });
         });
-
+        var state=0;
         function displayAllEntries(entries) {
             const entriesContainer = document.getElementById('entries-container');
             const allEntriesList = document.getElementById('all-entries');
         
             // Clear previous entries
             allEntriesList.innerHTML = '';
-        
             // Display each entry in a card
             entries.forEach(entry => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-        
-                const cardContent = document.createElement('div');
-                cardContent.classList.add('card-content');
-        
+                
                 // Display each field in the card
+                
+                const dataItem = document.createElement('li');
                 for (const key in entry) {
-                    const dataItem = document.createElement('li');
-                    const fieldName = document.createElement('h1');
+                    const fieldDiv = document.createElement('div');
+                    const fieldName = document.createElement('h3');
                     const fieldValue = document.createElement('p');
-        
+                    
                     fieldName.textContent = key + ":";
                     fieldValue.textContent = entry[key];
-        
-                    dataItem.appendChild(fieldName);
-                    dataItem.appendChild(fieldValue);
-        
-                    cardContent.appendChild(dataItem);
+                    fieldDiv.appendChild(fieldName);
+                    fieldDiv.appendChild(fieldValue);
+                    
+                    dataItem.appendChild(fieldDiv);                    
                 }
-        
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
                 deleteButton.className = 'delete-btn';
@@ -325,12 +410,11 @@
                     deleteEntry(entry._id);
                 });
         
-                cardContent.appendChild(deleteButton);
-                card.appendChild(cardContent);
-                allEntriesList.appendChild(card);
+                dataItem.appendChild(deleteButton);
+                    allEntriesList.appendChild(dataItem);
+        
             });
         
-            entriesContainer.style.display = 'block';
         }
         
         function updateAllEntries() {
@@ -397,10 +481,12 @@
             card.appendChild(cardTitle);
         
             const cardContent = document.createElement('div');
-            cardContent.classList.add('card-content');
+            cardContent.classList.add('left');
         
             // Display each extracted field in the card
+            var i=0;
             for (const key in extractedData) {
+                i++;
                 const dataItem = document.createElement('li');
                 const fieldName = document.createElement('h1');
                 const fieldValue = document.createElement('p');
@@ -412,9 +498,11 @@
                 dataItem.appendChild(fieldValue);
         
                 cardContent.appendChild(dataItem);
+                
             }
-        
+            
             card.appendChild(cardContent);
+            
             extractedDataList.appendChild(card);
             resultContainer.classList.remove('hidden');
             resultContainer.style.display = 'block';
