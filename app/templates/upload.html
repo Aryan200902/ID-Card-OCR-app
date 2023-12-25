@@ -11,36 +11,37 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #111;
+            color: #fff;
         }
 
         h1 {
-            text-align: center;
-            color: #007bff;
+            color: #fff;
             margin-top: 20px;
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 6px;
         }
 
-        #upload-form {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+        
 
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            color: #333;
+            color: #ccc;
         }
 
         input[type="file"] {
-            width: calc(100% - 20px);
-            padding: 10px;
+
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            padding: 20px 0px;
             border-radius: 4px;
+            font-size: 1.2rem;
             box-sizing: border-box;
         }
 
@@ -53,16 +54,23 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            padding: 30px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 6px;
+            margin-top: 30px;
         }
 
         #result-container,
         #entries-container {
-            display: none;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
+            /* display: none; */
+            width: 100%;
+            color: #111;
+            /* margin: 20px auto; */
+            /* padding: 20px; */
+            /* background-color: #fff; */
             border-radius: 8px;
+            color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -71,11 +79,7 @@
             padding: 0;
         }
 
-        li {
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
+       
 
         strong {
             font-weight: bold;
@@ -96,40 +100,192 @@
             background-color: #c82333;
         }
 
-        #toggle-entries-btn {
-            display: inline-block;
-            padding: 5px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
 
         .hidden {
             display: none;
         }
+        .wrapper{
+            width: 80%;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;            
+            /* justify-content: center; */
+            /* align-items: center; */
+            position: relative;
+        }
+        
+        #extracted-data{
+            display: flex;
+            justify-content: center;
+        }
+        .card{
+            width: 600px;
+            height: 450px;
+            background-color: #dc2788;
+            border-radius: 10px;
+        }
+        .card h2{
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .card div{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            letter-spacing: 0;
+        }
+        .card div h1{
+            font-size: 1rem;
+            padding: 0;
+            margin: 0;
+            letter-spacing: normal;
+            margin-right: 6px;
+        }
+        .card div li{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .card div p{
+            font-size: 1.4rem;
+            background-color: #fff;
+            color: #dc2788; 
+            padding: 6px;
+            border-radius: 4px;
+            
+        }
+        .card .left{
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+        }
+        .card .right{
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+        }
+        .card .right li,.left li{
+            width: 100%;
+        }
+        .card .left h1,.card .right h1{
+            width: 40%;
+            text-align: start;
+            margin-left: 20px;
+        }
+        .card .left p,.card .right p{
+            width:50%;
+            text-align: center;
+            margin-right: 20px;
+        }
+        #all-entries li{
+            width: 100%;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 10px;
+            padding: 4px;
+            border-color: #fff;
+        }
+        #all-entries li div{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        #all-entries li div div{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+
+        }
+        #all-entries button{
+            width: 30%;
+        }
     </style>
 </head>
 <body>
-    <h1>Thai ID Card OCR</h1>
+
+    <div class="wrapper">
+        <h1>Thai ID Card OCR</h1>
+
+        <form id="upload-form" enctype="multipart/form-data" method="post" action="/upload">
+            <label for="id_card_image">Select ID Card Image:</label>
+            <input type="file" id="id_card_image" name="id_card_image" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="result-container">
+            <h2>Extracted Information:</h2>
+            <ul id="extracted-data">
+                <div class="card">
+                    <h2>ID Card</h2>
+                    <div>
+                        <div class="left">
+                            <li>
+                                <h1>ID</h1>
+                                <p>12349671298</p>
+                            </li>
+                            <li>
+                                <h1>First Name</h1>
+                                <p>Aryan</p>
+                            </li>
+                            <li>
+                                <h1>Second Name</h1>
+                                <p>Shri</p>
+                            </li>
+                        </div>
+                        <div class="right">
+                            <li>
+                                <h1>DOB</h1>
+                                <p>27 Nov 2000</p>
+                            </li>
+                            <li>
+                                <h1>DOE</h1>
+                                <p>27 Sept 2023</p>
+                            </li>
+                            <li>
+                                <h1>DOI</h1>
+                                <p>27 Aug 2020</p>
+                            </li>
+                        </div>
+                        
+                        
+                        <li>
+                            <h1>ID No.</h1>
+                            <p>1297 098y102 124</p>
+                        </li>
+
+                    </div>
+                    
+                    
+                </div>
+                
+            </ul>
+        </div>
+
+        <div id="entries-container">
+            <h2>All Entries:</h2>
+            <ul id="all-entries">
+                <li>
+                    <h1>ID 632945927</h1>
+                    <div>
+                        <div>
+                            <h3>First Name:</h3>
+                            <h3>Last Name:</h3>
+                            <h3>ID No.:</h3>
+                        </div>
+                        <button>Delete</button>
+                    </div>
+                    
+                </li>
+            </ul>
+            <button id="toggle-entries-btn">Toggle All Entries</button>
+            </div>
+    </div>
     
-    <form id="upload-form" enctype="multipart/form-data" method="post" action="/upload">
-        <label for="id_card_image">Select ID Card Image:</label>
-        <input type="file" id="id_card_image" name="id_card_image" accept="image/*" required>
-        <button type="submit">Upload</button>
-    </form>
-
-    <div id="result-container">
-        <h2>Extracted Information:</h2>
-        <ul id="extracted-data"></ul>
-    </div>
-
-    <div id="entries-container">
-        <h2>All Entries:</h2>
-        <ul id="all-entries"></ul>
-        <button id="toggle-entries-btn">Toggle All Entries</button>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
