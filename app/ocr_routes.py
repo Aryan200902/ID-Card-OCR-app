@@ -6,20 +6,18 @@ import re
 from bson import ObjectId
 import json
 from dotenv import load_dotenv
-from google.oauth2 import service_account
+from google.cloud import storage
 
 load_dotenv()
 
 # Use the loaded environment variables
 google_credentials_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
-credentials = service_account.Credentials.from_service_account_info(
-    json.loads(google_credentials_json),
-    scopes=["https://www.googleapis.com/auth/cloud-platform"],
-)
+storage_client = storage.Client.from_service_account_info(json.loads(google_credentials_json))
+
 
 print("Credentials JSON:", google_credentials_json)
 # Create a Google Vision API client
-client = vision_v1.ImageAnnotatorClient(credentials=credentials)
+client = vision_v1.ImageAnnotatorClient(credentials=storage_client)
 
 def extract_field(description, pattern):
     # Extract information using regular expression pattern
