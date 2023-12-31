@@ -25,7 +25,7 @@ A simple web application for Optical Character Recognition (OCR) of Thai Nationa
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/Thai-ID-Card-OCR.git
+git clone https://github.com/Aryan200902/Thai-ID-Card-OCR.git
 cd Thai-ID-Card-OCR
 
 ```
@@ -56,7 +56,7 @@ python run.py
    
 ## for Testing
 
-1. Visit     https://64c5-2405-201-3046-d00c-4117-fc0b-110b-8b90.ngrok-free.app/upload  (Hosted)
+1. Visit     https://7182-2405-201-3046-d00c-c977-e1ed-cb49-d540.ngrok-free.app/upload  (Hosted)
 
 
 
