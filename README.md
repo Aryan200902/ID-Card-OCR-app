@@ -25,7 +25,7 @@ A simple web application for Optical Character Recognition (OCR) of Thai Nationa
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/Thai-ID-Card-OCR.git
+git clone https://github.com/Aryan200902/Thai-ID-Card-OCR.git
 cd Thai-ID-Card-OCR
 
 ```
@@ -51,35 +51,32 @@ python run.py
 
 ```
 
-5. Visit http://localhost:5000/upload in your  browser
+5. Visit http://localhost:PORT/upload in your  browser
 
    
 ## for Testing
 
-1. Visit https://5137-2405-201-3046-d00c-4117-fc0b-110b-8b90.ngrok-free.app
-
-
 
 ![image](https://github.com/Aryan200902/ID-Card-OCR-app/assets/94388629/e7b0b147-ac84-45a7-b6d9-a73c187b0885)
-2. Upload Thai Id Card and click upload Button for OCR.
+1. Upload Thai Id Card and click upload Button for OCR.
 
 
 
 
 ![image](https://github.com/Aryan200902/ID-Card-OCR-app/assets/94388629/46af7490-fc9f-4b07-86b5-873351c6d9cb)
-3. You wil get Description of Id Card Showing Required Information.
+2. You wil get Description of Id Card Showing Required Information.
 
 
 
 
 ![image](https://github.com/Aryan200902/ID-Card-OCR-app/assets/94388629/afb6a81f-a4fb-431f-a2a0-3c88fc5979bd)
-4. Below you will se a toggle button for showing all stored Id card details From Database.
+3. Below you will se a toggle button for showing all stored Id card details From Database.
 
 
 
 
 ![image](https://github.com/Aryan200902/ID-Card-OCR-app/assets/94388629/243220c9-2c03-42ac-a208-0ce09bd714a6)
-5. You can Delete Each of them Individually from the Database using delete button next to them
+4. You can Delete Each of them Individually from the Database using delete button next to them
 
 
 
