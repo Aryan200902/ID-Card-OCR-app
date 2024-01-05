@@ -12,7 +12,7 @@ load_dotenv()
 
 google_credentials_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
 # Create a Google Vision API client
-client = vision_v1.ImageAnnotatorClient.from_service_account_info(json.loads(google_credentials_json))
+client = vision_v1.ImageAnnotatorClient()
 
 def extract_field(description, pattern):
     # Extract information using regular expression pattern
