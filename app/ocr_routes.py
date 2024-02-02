@@ -10,9 +10,12 @@ from flask_pymongo import PyMongo
 
 load_dotenv()
 
-google_credentials_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+
+# Parse Google Cloud credentials from the environment variable
+google_credentials_json = os.getenv("GOOGLE_CREDENTIALS_JSON")
 # Create a Google Vision API client
 client = vision_v1.ImageAnnotatorClient()
+
 
 def extract_field(description, pattern):
     # Extract information using regular expression pattern
@@ -47,13 +50,7 @@ def delete_entry(entry_id):
         return jsonify({'status': 'error', 'message': 'Entry not found'})
     
 
-@app.route('/', methods=['GET'])    
-def home_page():            
-    if request.method == 'GET':
-        return jsonify({'status': 'success, SERVER IS RUNNING'})
-
-
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def upload_page():
     if request.method == 'POST':
         # Check if the post request has the file part

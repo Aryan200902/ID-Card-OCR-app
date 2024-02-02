@@ -446,7 +446,7 @@
             const form = event.target;
             const formData = new FormData(form);
 
-            fetch('/upload', {
+            fetch('/', {
                 method: 'POST',
                 body: formData
             })
@@ -461,7 +461,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
+                    alert('An error occurred. Please try again. check');
                 });
         });
 
